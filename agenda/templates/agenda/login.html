@@ -1,0 +1,23 @@
+{% extends 'agenda/base.html' %}
+
+{% block content %}
+    <div class="page-header">
+        <h2>Login Usuário</h2>
+    </div>
+    <form action="submit" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>Usuário</label>
+            <input type="text" name="username" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>Senha</label>
+            <input type="password" name="password" class="form-control" required>
+        </div>
+    <button type="submit" class="btn btn-primary">Entrar</button>
+    </form>
+    <a href="/register">Não tem conta? Crie uma aqui</a>
+    {% for message in messages %}
+        <strong style="color: red">Erro! </strong>{{ message }}
+    {% endfor %}
+{% endblock %}
