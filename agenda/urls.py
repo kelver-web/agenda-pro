@@ -14,4 +14,5 @@ urlpatterns = [
     path('lista/', views.lista),
     path('tarefa/<int:id>/', views.tarefa),
     path('adicionar/', views.adicionar),
+    path('adicionar/submit', views.adicionar_submit),
 ]

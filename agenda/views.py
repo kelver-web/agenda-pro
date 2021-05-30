@@ -30,15 +30,37 @@ def tarefa(request, id):
     context = {'items': items}
     return render(request, 'agenda/tarefas.html', context=context)
 
+
 @login_required(login_url='/login/')
 def adicionar(request):
-    form = FormTarefa(request.POST or None)
+    return render(request, 'agenda/cria-tarefa.html')
 
-    if form.is_valid():
-        form.save()
-        return redirect('/lista')
 
-    return render(request, 'agenda/cria-tarefa.html', {'form': form})
+def adicionar_submit(request):
+    if request.method == 'POST':
+        nome = request.POST.get('nome')
+        data_de_criacao = request.POST.get('data_de_criacao')
+        descricao = request.POST.get('descricao')
+        status = request.POST.ger('status')
+        usuario = request.user
+        # update agenda
+        id = request.POST.get('id')
+        if id:
+            evento = Tarefas.objects.get(id=id)
+            if evento.usuario == usuario:
+                evento.nome = nome
+                evento.descricao = descricao
+                evento.data_de_criacao = data_de_criacao
+                evento.status = status
+                evento.save()
+        else:
+            Tarefas.objects.create(nome=nome,
+                                  data_de_criacao=data_de_criacao,
+                                  descricao=descricao,
+                                  status=status,
+                                  usuario=usuario)
+    return render(request, 'agenda/cria-tarefa.html')
+
 
 
 def login_user(request):

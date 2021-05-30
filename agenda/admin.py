@@ -5,7 +5,7 @@ from agenda.models import Tarefas
 
 
 class TarefasAdmin(admin.ModelAdmin):
-    list_display = ['usuario', 'nome', 'descricao', 'data_de_criacao', 'data_de_execucuao', 'status']
+    list_display = ['usuario', 'nome', 'descricao', 'data_de_criacao', 'status']
     list_editable = ['status']
     list_filter = ['usuario', 'data_de_criacao']
 

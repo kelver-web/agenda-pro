@@ -7,31 +7,29 @@
     <div class="page-header">
         <h2>&#128221; Nova Tarefa</h2>
     </div>
-    <form action="." method="POST">
-        {% csrf_token %}
-        {% if form.non_field_erros %}
-        <div class="alert alert-danger">
-            {{ form.non_field_erros }}
-        </div>
-        {% endif %}
-        {% for field in form %}
-            <div class="form-group">
-                <label for="{{ field.id_for_label }}" class="label-control">
-                    {{ field.label }}
-                    {% if field.field.required %}*{% endif %}
-                </label>
-                <br>
-                    {{ field }}
-                    {% if field.erros %}
-                <div class="alert alert-danger">{{ field.erros }}</div>
-                {% endif %}
-            </div>
-        {% endfor %}
-    <button type="submit" class="btn btn-primary">Criar</button>
+    <form action="submit" method="POST">{% csrf_token %}
+        <label>Nome da Tarefa</label>
+        <input type="number" name="id" value="{{ evento.id }}" hidden>
+        <br>
+        <input type="text" name="nome" size="22" value="{{ evento.nome }}">
+        <br>
+        <label>Data da Criação</label>
+        <br>
+        <input type="datetime-local" name="data_de_criacao" value="{{ evento.data_de_criacao }}" required>
+        <br>
+        <label>Descrição</label>
+        <br>
+        <textarea name="descricao" rows="5" cols="24" required style="width: 600px; height: 150px; resize: none;">{{ evento.descricao }}</textarea>
+        <br>
+        <label>Status da Tarefa</label>
+        <br>
+        {{ evento.status }}
+        <br><br>
+        <button type="submit" class='btn btn-primary'>Salvar</button>
     </form>
-    <script>
-        $("input").addClass("form-control");
-        $("textarea").addClass("form-control");
-        $("input[type=checkbox]").removeClass("form-control");
-    </script>
+    <div  style="padding-left: 502px;">
+        <a href="/lista"><button type="submit" class='btn btn-primary'>Cancelar</button></a>
+    </div>
+    
+    
 {% endblock %}
