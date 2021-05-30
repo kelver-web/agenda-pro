@@ -2,14 +2,15 @@
 
 
 {% block content %}
-<h2>Página principal</h2>
-   <!-- <div>
-        <a href="/logout" style="padding-left: 1000px;">Logout</a>
+   <div>
+      <div align="Right">
+         <a href="/logout">Logout</a>
+      </div>
         <div class="page-header">
-            <h2>Olá {{ user }}</h2>
+            <h2>Olá <!--{{ user }}--></h2>
         </div>
-        Você tem {{ items }} {% if items > 1 %}tarefas abertas{% else %}tarefas aberta{% endif %}
+        <!--Você tem {{ items }} {% if items > 1 %}tarefas abertas{% else %}tarefas aberta{% endif %}-->
         <br>
         <a href="/lista/">Minhas Tarefas</a> 
-    </div> -->
+   </div>
 {% endblock %}
