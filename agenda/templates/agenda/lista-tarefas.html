@@ -1,0 +1,29 @@
+{% extends 'agenda/base.html' %}
+
+{% block content %}
+    <div align="Right">
+        <a href="/home">&#8678; Voltar</a>
+    </div>
+    <div class="page_header">
+        <h2>&#128194; Minhas Tarefas</h2>
+    </div>
+    <table class="table">
+        <tr>
+            <th>Nome da Tarefa</th>
+            <th>Descrição</th>
+            <th>Data de Criação</th>
+            <th>Status</th>
+            <th>Usuário</th>
+        </tr>
+        {% for item in items %}
+        <tr>
+            <td>&#10162; <a href="/tarefa/{{ item.id }}">{{ item.nome }}</a></td>
+            <td>{{ item.descricao }}</td>
+            <td>{{ item.data_de_criacao|date:"d/m/Y H:i" }}</td>
+            <td>{% if item.status %}Finalizado{% else %}Aberto{% endif %}</td>
+            <td>{{ user }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a class="btn btn-primary" href="/adicionar/">Adicionar Tarefas</a>
+{% endblock %}

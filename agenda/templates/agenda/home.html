@@ -4,13 +4,13 @@
 {% block content %}
    <div>
       <div align="Right">
-         <a href="/logout">Logout</a>
+         <a href="/logout">&#8617; Logout</a>
       </div>
-        <div class="page-header">
-            <h2>Olá <!--{{ user }}--></h2>
-        </div>
-        <!--Você tem {{ items }} {% if items > 1 %}tarefas abertas{% else %}tarefas aberta{% endif %}-->
-        <br>
-        <a href="/lista/">Minhas Tarefas</a> 
+         <div class="page-header">
+            <h2>Olá {{ user }}, Seja bem vindo(a).</h2>
+         </div>
+         <b>Você tem {{ items }} {% if items > 1 %}tarefas abertas.{% else %}tarefa aberta.{% endif %}
+         <br>
+         &#128269; Veja as suas Tarefas &#8680; <a href="/lista/">Minhas Tarefas</a>
    </div>
 {% endblock %}

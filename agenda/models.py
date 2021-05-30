@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class Tarefas(models.Model):
     data_de_criacao = models.DateTimeField(auto_now_add=True, verbose_name='data de criação')
     data_de_execucuao = models.DateTimeField(blank=True, null=True, verbose_name='data de execução')
-    nome = models.CharField(max_length=200, verbose_name='nome')
+    nome = models.CharField(max_length=200, null=True, verbose_name='nome')
     descricao = models.TextField(verbose_name='descrição', blank=True, null=True)
     status = models.BooleanField(default=False, verbose_name='finalizado')
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)

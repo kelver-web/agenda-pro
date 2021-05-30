@@ -4,15 +4,41 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
-
+from agenda.models import Tarefas
+from agenda.forms import FormTarefa
 
 # Create your views here.
 
 
 @login_required(login_url='/login/')
 def home(request):
+    usuario = request.user
+    items = Tarefas.objects.filter(usuario=usuario).count()
+    context = {'items': items}
+    return render(request, 'agenda/home.html', context=context)
 
-    return render(request, 'agenda/home.html')
+@login_required(login_url='/login/')
+def lista(request):
+    usuario = request.user
+    items = Tarefas.objects.filter(usuario=usuario)
+    context = {'items': items}
+    return render(request, 'agenda/lista-tarefas.html', context=context)
+
+@login_required(login_url='/login/')
+def tarefa(request, id):
+    items = Tarefas.objects.filter(id=id)
+    context = {'items': items}
+    return render(request, 'agenda/tarefas.html', context=context)
+
+@login_required(login_url='/login/')
+def adicionar(request):
+    form = FormTarefa(request.POST or None)
+
+    if form.is_valid():
+        form.save()
+        return redirect('/lista')
+
+    return render(request, 'agenda/cria-tarefa.html', {'form': form})
 
 
 def login_user(request):

@@ -1,0 +1,28 @@
+{% extends 'agenda/base.html' %}
+
+{% block content %}
+    <div align="Right">
+        <a href="/lista">&#8678; Voltar</a>
+    </div>
+
+    <dl class="dl-horizontal">
+        <h2>&#128199; Detalhes da Tarefa</h2>
+
+        {% for item in items %}
+            <dt>Nome:</dt><dd>{{ item.nome }}</dd>
+            <dt>Data de criação:</dt><dd>{{ item.data_de_criacao }}</dd>
+            <dt>Descrição:</dt><dd>{{ item.descricao }}</dd>
+            <dt>Status:</dt><dd>{% if item.status %}Finalizado{% else %}Aberto{% endif %}</dd>
+            <dt>Usuario:</dt><dd>{{ user }}</dd>
+            <br>
+            {% if item.data_de_execucao %}
+                <dt>Data de Execução</dt><dd>{{ item.data_de_execucao }}</dd>
+            {% endif %}
+        {% endfor %}
+    </dl>
+    <div>
+        <a href="#">&#128686; Finalizar Tarefa</a><br>
+        <a href="#">&#128210; Refazer a Tarefa</a>
+    </div>
+
+{% endblock %}
