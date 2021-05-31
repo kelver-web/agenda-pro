@@ -21,8 +21,9 @@
         {% endfor %}
     </dl>
     <div>
-        <a href="#">&#128686; Finalizar Tarefa</a><br>
-        <a href="#">&#128210; Refazer a Tarefa</a>
+        {% for item in items %}
+            <a href="/deletar/{{ item.id }}">&#128686; Finalizar Tarefa</a>
+        {% endfor %}
     </div>
 
 {% endblock %}

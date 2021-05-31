@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
+from django.http.response import Http404
 from agenda.models import Tarefas
 from agenda.forms import FormTarefa
 
@@ -33,15 +34,18 @@ def tarefa(request, id):
 
 @login_required(login_url='/login/')
 def adicionar(request):
-    return render(request, 'agenda/cria-tarefa.html')
+    id = request.GET.get('id')
+    dados = {}
+    if id:
+        dados['evento'] = Tarefas.objects.get(id=id)
+    return render(request, 'agenda/cria-tarefa.html', dados)
 
-
+@login_required(login_url='/login/')
 def adicionar_submit(request):
     if request.method == 'POST':
         nome = request.POST.get('nome')
         data_de_criacao = request.POST.get('data_de_criacao')
         descricao = request.POST.get('descricao')
-        status = request.POST.ger('status')
         usuario = request.user
         # update agenda
         id = request.POST.get('id')
@@ -51,17 +55,28 @@ def adicionar_submit(request):
                 evento.nome = nome
                 evento.descricao = descricao
                 evento.data_de_criacao = data_de_criacao
-                evento.status = status
                 evento.save()
         else:
             Tarefas.objects.create(nome=nome,
                                   data_de_criacao=data_de_criacao,
                                   descricao=descricao,
-                                  status=status,
                                   usuario=usuario)
     return render(request, 'agenda/cria-tarefa.html')
 
 
+@login_required(login_url='/login/')
+def deletar(request, id):
+    usuario = request.user
+    try:
+        items = Tarefas.objects.get(id=id)
+    except Exception:
+        raise Http404()
+
+    if usuario == items.usuario:
+        items.delete()
+    else:
+        raise Http404()
+    return redirect('/lista')
 
 def login_user(request):
     return render(request, 'agenda/login.html')

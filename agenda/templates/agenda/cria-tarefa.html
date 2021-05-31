@@ -9,27 +9,17 @@
     </div>
     <form action="submit" method="POST">{% csrf_token %}
         <label>Nome da Tarefa</label>
-        <input type="number" name="id" value="{{ evento.id }}" hidden>
         <br>
         <input type="text" name="nome" size="22" value="{{ evento.nome }}">
         <br>
         <label>Data da Criação</label>
         <br>
-        <input type="datetime-local" name="data_de_criacao" value="{{ evento.data_de_criacao }}" required>
+        <input type="datetime-local" name="data_de_criacao" value="{{ evento.get_data_input_evento }}" required>
         <br>
         <label>Descrição</label>
         <br>
         <textarea name="descricao" rows="5" cols="24" required style="width: 600px; height: 150px; resize: none;">{{ evento.descricao }}</textarea>
-        <br>
-        <label>Status da Tarefa</label>
-        <br>
-        {{ evento.status }}
         <br><br>
         <button type="submit" class='btn btn-primary'>Salvar</button>
     </form>
-    <div  style="padding-left: 502px;">
-        <a href="/lista"><button type="submit" class='btn btn-primary'>Cancelar</button></a>
-    </div>
-    
-    
 {% endblock %}

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+
 # Create your models here.
 
 
@@ -17,3 +18,10 @@ class Tarefas(models.Model):
 
     def __str__(self):
         return self.nome
+
+    def get_data(self):
+        return self.data_de_criacao.strftime('%d/%m/%y hora %H:%M Hrs')
+
+    def get_data_input_evento(self):
+        return self.data_de_criacao.strftime('%Y-%m-%dT%H:%M')
+

@@ -15,4 +15,5 @@ urlpatterns = [
     path('tarefa/<int:id>/', views.tarefa),
     path('adicionar/', views.adicionar),
     path('adicionar/submit', views.adicionar_submit),
+    path('deletar/<int:id>/', views.deletar),
 ]
